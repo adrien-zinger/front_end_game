@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>TEST</title>
+        <link rel="stylesheet" href="css/classic.css">
+    </head>
+    <body>
+        <table id="board" cellspacing="0" cellpadding="0" border="0"></table>
+    </body>
+    <!-- DungeonGenerator -->
+
+    <script src="js/DungeonGenerator/utils/array2d.js"></script>
+    <script src="js/DungeonGenerator/utils/index.js"></script>
+    <script src="js/DungeonGenerator/utils/rectangle.js"></script>
+    <script src="js/DungeonGenerator/utils/random.js"></script>
+    <script src="js/DungeonGenerator/const.js"></script>
+    <script src="js/DungeonGenerator/pieces/piece.js"></script>
+    <script src="js/DungeonGenerator/pieces/room.js"></script>
+    <script src="js/DungeonGenerator/pieces/corridor.js"></script>
+    <script src="js/DungeonGenerator/generators/generator.js"></script>
+    <script src="js/DungeonGenerator/generators/dungeon.js"></script>
+    <script src="js/DungeonGenerator/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', main, false);
+        function main() {
+            buildClassic();
+        }
+    </script>
+</html>

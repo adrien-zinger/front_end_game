@@ -1,0 +1,31 @@
+@font-face {
+	font-family: 'Manaspace';
+	font-style: normal;
+	font-weight: 400;
+	src: url(manaspc.ttf) format('truetype');
+}
+
+h2 {
+    font-family: "Manaspace";
+    font-size: 28px;
+}
+
+input {
+	font-family: "Manaspace";
+    font-size: 22px;
+}
+
+body {
+	height: 100%;
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+
+.center-content {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translateX(-50%) translateY(-50%);
+	padding: 1%;
+}
