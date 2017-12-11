@@ -8,9 +8,35 @@
     <body>
         <div class="center-content">
             <h2>QUI ES-TU ?</h2>
-            <form>
-                <input type="text">
+            <form id="who" method="GET">
+                <input type="text" id="name">
+                <input type="submit">
             </form>
         </div>
     </body>
+
+    <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
+
+    <script src="js/utils.js"></script>
+    <script>
+        localStorage['dungeon-gun-url'] = "http://localhost:8080/gun";
+
+        initGun();
+
+        if (localStorage['dungeon-userId']) {
+            window.location.href = "./menu.html";
+        }
+
+        document.querySelector("#who").addEventListener("submit", function(e){
+            e.preventDefault();
+            var name = document.getElementById("name").value;
+            if (name) {
+                gun.get("users").set({name: name}).val(data => {
+                    localStorage['dungeon-userId'] = data._["#"];
+                    window.location.href = "./menu.html";
+                });
+            }
+        });
+
+    </script>
 </html>

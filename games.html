@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>TEST</title>
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/games.css">
+    </head>
+    <body>
+        <div class="center-content">
+            <h2>Liste</h2>
+            <div id="list" class="btn-group">
+            </div>
+        </div>
+    </body>
+
+    <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
+    <script src="js/utils.js"></script>
+    <script>
+        initGun();
+        var user;
+        getUser().then(usr => user = usr);
+        var list = document.getElementById("list")
+        gun.get("games").map().val(function(data, id) {
+            var game = document.createElement("button");
+            game.innerText = data.name;
+            game.onclick = function() {
+                user.put({game: data});
+                window.location.href = "./game.html";
+            };
+            list.appendChild(game);
+        });
+    </script>
+</html>

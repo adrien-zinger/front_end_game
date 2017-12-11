@@ -3,28 +3,53 @@
     <head>
         <meta charset="utf-8">
         <title>TEST</title>
-        <link rel="stylesheet" href="css/classic.css">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/game.css">
     </head>
     <body>
-        <table id="board" cellspacing="0" cellpadding="0" border="0"></table>
-    </body>
-    <!-- DungeonGenerator -->
+        <div class="center-content">
+            <h2 id="name"></h2>
+            <div id="list" class="div-group">
 
-    <script src="js/DungeonGenerator/utils/array2d.js"></script>
-    <script src="js/DungeonGenerator/utils/index.js"></script>
-    <script src="js/DungeonGenerator/utils/rectangle.js"></script>
-    <script src="js/DungeonGenerator/utils/random.js"></script>
-    <script src="js/DungeonGenerator/const.js"></script>
-    <script src="js/DungeonGenerator/pieces/piece.js"></script>
-    <script src="js/DungeonGenerator/pieces/room.js"></script>
-    <script src="js/DungeonGenerator/pieces/corridor.js"></script>
-    <script src="js/DungeonGenerator/generators/generator.js"></script>
-    <script src="js/DungeonGenerator/generators/dungeon.js"></script>
-    <script src="js/DungeonGenerator/main.js"></script>
+            </div>
+            <form id="addPlayer">
+                <input type="text" id="playerName">
+                <input type="submit" value="AJOUTER">
+            </form>
+        </div>
+    </body>
+
+    <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
+
+    <script src="js/utils.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', main, false);
-        function main() {
-            buildClassic();
-        }
+        initGun();
+
+        var user;
+        var game;
+        getUser().then(usr => {
+            user = usr
+            game = user.get("game");
+            game.get("name").val(name =>
+                document.getElementById("name").innerText = name);
+        });
+
+        document.querySelector("#addPlayer").addEventListener("submit", function(e){
+            e.preventDefault();
+            var playerName = document.getElementById("playerName").value;
+            var player = user.get("players").get(playerName)
+            player.val(data => {
+                if (data === undefined) {
+                    player.put({strentgh: 1, agility: 1, magic: 1, life: 1, move: 3, action: 3, gold: 0});
+                }
+                player.get("equipment").put(null)
+                player.get("equipment").set({name: "hand", action: 1, type: "strentgh"});
+            });
+
+            
+            var elt = document.createElement("div");
+            elt.innerHTML = playerName;
+            document.getElementById("list").appendChild(elt);
+        });
     </script>
 </html>

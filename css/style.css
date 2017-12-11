@@ -7,12 +7,25 @@
 
 h2 {
     font-family: "Manaspace";
-    font-size: 28px;
+	font-size: 28px;
+	color: darkgray;
+}
+
+p {
+    font-family: "Manaspace";
+	font-size: 22px;
+	color: darkgray;
+}
+
+button {
+	font-family: "Manaspace";
+	font-size: 22px;
 }
 
 input {
 	font-family: "Manaspace";
-    font-size: 22px;
+	font-size: 22px;
+	color: black;
 }
 
 body {
@@ -20,6 +33,7 @@ body {
 	width: 100%;
 	margin: 0px;
 	padding: 0px;
+	background: black;
 }
 
 .center-content {
