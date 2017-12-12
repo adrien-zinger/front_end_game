@@ -18,8 +18,11 @@
     <script src="js/utils.js"></script>
     <script>
         initGun();
+
         var user;
+
         getUser().then(usr => user = usr);
+
         var list = document.getElementById("list")
         gun.get("games").map().val(function(data, id) {
             var game = document.createElement("button");
