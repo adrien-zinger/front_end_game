@@ -17,7 +17,7 @@ function getPlayer(playerName) {
         getPlayers().then(ps => {
             ps.get(playerName).val(pVal => {
                 if (pVal === undefined) {
-                    ps.put(getNewPlayer(), () => {
+                    ps.put(getNewPlayer(playerName), () => {
                         resolve(ps.get(playerName));
                     });
                 } else {
@@ -31,7 +31,6 @@ function getPlayer(playerName) {
 function initPlayer(playerName) {
     return new Promise(resolve => {
         getPlayer(playerName).then(player => {
-            resolve(player);
             player.put({equipment: null}, () => {
                 player.get("equipment").set({
                     name: "hand",

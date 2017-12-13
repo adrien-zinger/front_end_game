@@ -21,6 +21,7 @@
     <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
 
     <script src="js/utils.js"></script>
+    <script src="js/game.js"></script>
     <script>
         initGun();
 
@@ -29,12 +30,11 @@
         var players = [];
 
         getUser().then(usr => {
-            user = usr
+            user = usr;
             game = user.get("game");
             game.get("name").val(name =>
                 document.getElementById("name").innerText = name);
             game.get("players").map().on((player, id) => {
-                console.log(player);
                 if (players[id] === undefined) {
                     players[id] = player;
                     var elt = document.createElement("div");
@@ -50,8 +50,10 @@
             var playerName = document.getElementById("playerName").value;
             document.getElementById("playerName").value = "";
             initPlayer(playerName).then(player => {
+                player.put({userId: localStorage["dungeon-userId"]});
                 game.get("players").set(player);
             });
         });
+
     </script>
 </html>

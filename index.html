@@ -24,16 +24,27 @@
         initGun();
 
         if (localStorage['dungeon-userId']) {
-            window.location.href = "./menu.html";
+            gun.get("users").get(localStorage['dungeon-userId']).val(data => {
+                if (data) {
+                    window.location.href = "./menu.html";
+                }
+            });
         }
 
         document.querySelector("#who").addEventListener("submit", function(e){
             e.preventDefault();
             var name = document.getElementById("name").value;
             if (name) {
-                gun.get("users").set({name: name}).val(data => {
-                    localStorage['dungeon-userId'] = data._["#"];
-                    window.location.href = "./menu.html";
+                var newUser;
+                new Promise(resolve => {
+                    newUser = gun.get("users").set({name: name}, () => {
+                        resolve();
+                    });
+                }).then(() => {
+                    newUser.val(data => {
+                        localStorage['dungeon-userId'] = data._["#"];
+                        window.location.href = "./menu.html";
+                    });
                 });
             }
         });
