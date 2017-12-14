@@ -35,16 +35,9 @@
             e.preventDefault();
             var name = document.getElementById("name").value;
             if (name) {
-                var newUser;
-                new Promise(resolve => {
-                    newUser = gun.get("users").set({name: name}, () => {
-                        resolve();
-                    });
-                }).then(() => {
-                    newUser.val(data => {
-                        localStorage['dungeon-userId'] = data._["#"];
-                        window.location.href = "./menu.html";
-                    });
+                gun.get("users").set({name: name}).val(userVal => {
+                    localStorage['dungeon-userId'] = userVal._["#"];
+                    window.location.href = "./menu.html";
                 });
             }
         });

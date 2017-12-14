@@ -21,26 +21,27 @@
 
         var games = [];
         var user;
-        getUser().then(usr => user = usr);
+        getUser().then(userNode => user = userNode);
 
 
         var list = document.getElementById("list")
-        gun.get("games").map().on(function(data, id) {
-            if (!data) return;
-            if (games[id] === undefined) {
-                games[id] = data;
-                var game = document.createElement("button");
-                game.innerText = data.name;
+        gun.get("games").map().on((gameVal, gameId) => {
+            if (!gameVal) return;
+            if (games[gameId] === undefined) {
+                games[gameId] = gameVal;
+                var gameBtn = document.createElement("button");
+                gameBtn.innerText = gameVal.name;
 
-                game.onclick = function() {
-                    getUser().then(user => {
-                        user.put({game: id}, () => {
+                gameBtn.onclick = function() {
+                    user.val(userVal => {
+                        userVal.gameId = gameId;
+                        user.put(userVal, () => {
                             window.location.href = "./game.html";
                         });
                     });
                 };
 
-                list.appendChild(game);
+                list.appendChild(gameBtn);
             }
         });
     </script>

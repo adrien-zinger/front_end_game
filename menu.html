@@ -22,19 +22,23 @@
         initGun();
 
         var user;
-        getUser().then(usr => {
-            user = usr;
-            user.get("name").val(name => 
-                document.getElementById("hello-user").innerText = name);
+        getUser().then(userNode => {
+            user = userNode;
+            user.get("name").val(name => {
+                document.getElementById("hello-user").innerText = name;
+            });
         });
 
         document.querySelector("#new").addEventListener("submit", function(e){
             e.preventDefault();
             var name = document.getElementById("name").value;
             if (name) {
-                gun.get("games").set({name: name}).val(data => {
-                    user.put({game: data});
-                    window.location.href = "./game.html";
+                gun.get("games").set({name: name}).val(gameVal => {
+                    user.val(userVal=>{
+                        userVal.game = gameVal;
+                        user.put(userVal);
+                        window.location.href = "./game.html";
+                    });
                 });
             }
         });
