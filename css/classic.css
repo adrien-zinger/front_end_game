@@ -2,7 +2,6 @@ td {
 	width: 16px;
 	height: 16px;
 	display: inline-block;
-    background: url("../img/objects/Floor.png") no-repeat;
     padding: 0;
 }
 
@@ -17,6 +16,10 @@ table, tbody, tr {
     display: block;
 }
 
+/*
+
+  background: url("../img/objects/Floor.png") no-repeat;
+
 .classic_grass_top_left { background-position: calc(0 * 16px) calc(0 * 16px); }
 .classic_grass_top { background-position: calc(0 * 16px) calc(0 * 16px); }
 .classic_grass_top_right { background-position: calc(0 * 16px) calc(0 * 16px); }
@@ -26,7 +29,7 @@ table, tbody, tr {
 .classic_grass_bottom { background-position: calc(0 * 16px) calc(0 * 16px); }
 .classic_grass_bottom_right { background-position: calc(0 * 16px) calc(0 * 16px); }
 .classic_grass_middle { background-position: calc(0 * 16px) calc(0 * 16px); }
-
+*/
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)

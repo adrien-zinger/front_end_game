@@ -15,11 +15,23 @@
                 <input type="text" id="playerName">
                 <input type="submit" value="AJOUTER">
             </form>
+            <button id="start">Démarrer la partie</button>
         </div>
     </body>
 
     <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
 
+    <script src="js/DungeonGenerator/utils/array2d.js"></script>
+    <script src="js/DungeonGenerator/utils/index.js"></script>
+    <script src="js/DungeonGenerator/utils/rectangle.js"></script>
+    <script src="js/DungeonGenerator/utils/random.js"></script>
+    <script src="js/DungeonGenerator/const.js"></script>
+    <script src="js/DungeonGenerator/pieces/piece.js"></script>
+    <script src="js/DungeonGenerator/pieces/room.js"></script>
+    <script src="js/DungeonGenerator/pieces/corridor.js"></script>
+    <script src="js/DungeonGenerator/generators/generator.js"></script>
+    <script src="js/DungeonGenerator/generators/dungeon.js"></script>
+    <script src="js/DungeonGenerator/main.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/game.js"></script>
     <script>
@@ -44,6 +56,16 @@
                         document.getElementById("list").appendChild(elt);
                     }
                 });
+                game.get("start").on(start => {
+                    if (start && start == true) {
+                        game.val(gameVal => {
+                            gameVal.board = JSON.stringify(buildClassic());
+                            game.put(gameVal, () => {
+                                window.location.href = "./board.html";
+                            });
+                        });
+                    }
+                });
             });
         });
 
@@ -61,5 +83,11 @@
             });
         });
 
+        document.getElementById("start").onclick = function() {
+            game.val(gameVal => {
+                gameVal.start = true;
+                game.put(gameVal);
+            });
+        };
     </script>
 </html>

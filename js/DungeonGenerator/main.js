@@ -13,6 +13,16 @@ var build = function(stats) {
     return table;
 }
 
+var design = function(table, type) {
+    if (type == "classic") {
+        for (var y = 0; y < table.length; ++y) {
+            for (var x = 0; x < table[y].length; ++x) {
+                
+            }
+        }
+    }
+}
+
 var buildClassic = function() {
     return build({
         size: [100, 50], 

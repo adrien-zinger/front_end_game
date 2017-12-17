@@ -7,12 +7,86 @@
     </head>
     <body>
         <table id="board" cellspacing="0" cellpadding="0" border="0"></table>
+        <button onclick="left()">gauche</button>
+        <button onclick="right()">droite</button>
+        <button onclick="up()">haut</button>
+        <button onclick="down()">bas</button>
     </body>
+
+    <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
+    <script src="js/utils.js"></script>
+
+    <script src="js/DungeonGenerator/utils/array2d.js"></script>
+    <script src="js/DungeonGenerator/utils/index.js"></script>
+    <script src="js/DungeonGenerator/utils/rectangle.js"></script>
+    <script src="js/DungeonGenerator/utils/random.js"></script>
+    <script src="js/DungeonGenerator/const.js"></script>
+    <script src="js/DungeonGenerator/pieces/piece.js"></script>
+    <script src="js/DungeonGenerator/pieces/room.js"></script>
+    <script src="js/DungeonGenerator/pieces/corridor.js"></script>
+    <script src="js/DungeonGenerator/generators/generator.js"></script>
+    <script src="js/DungeonGenerator/generators/dungeon.js"></script>
+    <script src="js/DungeonGenerator/main.js"></script>
     <script src="js/board.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', main, false);
-        function main() {
-            show_board();
+        initGun();
+
+        var user;
+        var game;
+        var players = [];
+
+        var camera = {
+            x: 0,
+            y: 0,
+            h: 20,
+            w: 20
+        };
+    
+        getUser().then(userNode => {
+            user = userNode;
+            user.get("gameId").val(gameId => {
+                game = gun.get("games").get(gameId);
+                game.get("board").on(board => {            
+                    showBoard(JSON.parse(board), camera);
+                });
+            });
+        });
+
+        function left() {
+            camera.x -= 1;
+            game.get("board").val(board => {     
+                showBoard(JSON.parse(board), camera);
+            });
         }
+
+        function right() {
+            camera.x += 1;
+            game.get("board").val(board => {     
+                showBoard(JSON.parse(board), camera);
+            });
+        }
+
+        function up() {
+            camera.y -= 1;
+            game.get("board").val(board => {     
+                showBoard(JSON.parse(board), camera);
+            });
+        }
+
+        function down() {
+            camera.y += 1;
+            game.get("board").val(board => {     
+                showBoard(JSON.parse(board), camera);
+            });
+        }
+
+        window.onbeforeunload = function (e) {
+            game.get("players").map().val((playerVal, playerId) => {
+                if (playerVal.userId == localStorage["dungeon-userId"]) {
+                    game.get("players").get(playerId).put(null);
+                }
+            });
+        };
+
     </script>
 </html>
