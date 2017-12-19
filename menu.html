@@ -33,9 +33,9 @@
             e.preventDefault();
             var name = document.getElementById("name").value;
             if (name) {
-                gun.get("games").set({name: name}).val(gameVal => {
+                gun.get("games").set({name: name, start: false}).val(gameVal => {
                     user.val(userVal=>{
-                        userVal.game = gameVal;
+                        userVal.gameId = gameVal._["#"];
                         user.put(userVal);
                         window.location.href = "./game.html";
                     });

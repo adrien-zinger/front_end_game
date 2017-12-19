@@ -9,24 +9,12 @@ var build = function(stats) {
         }
         table[y] = row;
     }
-    console.log(table);
     return table;
 }
 
-var design = function(table, type) {
-    if (type == "classic") {
-        for (var y = 0; y < table.length; ++y) {
-            for (var x = 0; x < table[y].length; ++x) {
-                
-            }
-        }
-    }
-}
-
 var buildClassic = function() {
-    return build({
+    var table = build({
         size: [100, 50], 
-        //seed: 'abcd', //omit for generated seed
         rooms: {
             initial: {
                 min_size: [2, 2],
@@ -53,4 +41,5 @@ var buildClassic = function() {
             {type: 'classic', number: 2}
         ]
     });
+    return design(table, "classic");
 }

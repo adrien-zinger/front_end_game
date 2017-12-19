@@ -2,7 +2,7 @@
 <html lang="fr">
     <head>
         <meta charset="utf-8">
-        <title>TEST</title>
+        <title>Dungeon game</title>
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
@@ -15,14 +15,28 @@
         </div>
     </body>
 
+    <!-- Sources de gundb -->
     <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
 
     <script src="js/utils.js"></script>
     <script>
+        /**
+         * Cest ici qu'on initialise l'adresse de la bdd pour s'instant.
+         */
         localStorage['dungeon-gun-url'] = "http://localhost:8080/gun";
 
+        /**
+         * Initialisation de gundb (utils.js) a faire dans toute les pages
+         */
         initGun();
 
+        /**
+         * Icije vais chercher dans le cache s'il y a pas deja eu une connection.
+         * Pour eviter un glitch on pourrait faire un genre de loader.
+         * 
+         * Une fois que j'ai teste ca je regarde quand meme si l'utilisateur
+         * existe bien.
+         */
         if (localStorage['dungeon-userId']) {
             gun.get("users").get(localStorage['dungeon-userId']).val(data => {
                 if (data) {
@@ -30,7 +44,14 @@
                 }
             });
         }
-
+        /**
+         * Une fois un nom rentre un utilisateur est cree avec ce nom. Peut
+         * importe si quelqu'un l'utilise deja. son reel identifiant est celui
+         * stoque dans son cache localStorage['dungeon-userId']
+         * 
+         * On pourra creer un moyen de retrouver cet utilisateur sur d'autre machine
+         * ou de se deconnecter plus tard..
+         */
         document.querySelector("#who").addEventListener("submit", function(e){
             e.preventDefault();
             var name = document.getElementById("name").value;

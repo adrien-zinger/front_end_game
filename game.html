@@ -21,6 +21,11 @@
 
     <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
 
+    <script src="js/utils.js"></script>
+
+    <script src="js/DungeonGenerator/design/wall.js"></script>
+    <script src="js/DungeonGenerator/design/floor.js"></script>
+    <script src="js/DungeonGenerator/design/design.js"></script>
     <script src="js/DungeonGenerator/utils/array2d.js"></script>
     <script src="js/DungeonGenerator/utils/index.js"></script>
     <script src="js/DungeonGenerator/utils/rectangle.js"></script>
@@ -32,7 +37,6 @@
     <script src="js/DungeonGenerator/generators/generator.js"></script>
     <script src="js/DungeonGenerator/generators/dungeon.js"></script>
     <script src="js/DungeonGenerator/main.js"></script>
-    <script src="js/utils.js"></script>
     <script src="js/game.js"></script>
     <script>
         initGun();
@@ -56,14 +60,9 @@
                         document.getElementById("list").appendChild(elt);
                     }
                 });
-                game.get("start").on(start => {
-                    if (start && start == true) {
-                        game.val(gameVal => {
-                            gameVal.board = JSON.stringify(buildClassic());
-                            game.put(gameVal, () => {
-                                window.location.href = "./board.html";
-                            });
-                        });
+                game.on(gameVal => {
+                    if (gameVal.start && gameVal.start == true) {
+                        window.location.href = "./board.html";
                     }
                 });
             });
@@ -83,11 +82,17 @@
             });
         });
 
-        document.getElementById("start").onclick = function() {
+        new Promise(resolve => {
+            document.getElementById("start").onclick = function() {
+                resolve();
+            };
+        }).then(() => {
             game.val(gameVal => {
+                var board = buildClassic();
+                gameVal.board = JSON.stringify(board);
                 gameVal.start = true;
                 game.put(gameVal);
             });
-        };
+        });
     </script>
 </html>
