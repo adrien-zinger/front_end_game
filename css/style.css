@@ -17,6 +17,12 @@ p {
 	color: darkgray;
 }
 
+a {
+	font-family: "Manaspace";
+	font-size: 22px;
+	color: darkgray;
+}
+
 button {
 	font-family: "Manaspace";
 	font-size: 22px;

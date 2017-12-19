@@ -16,25 +16,6 @@ table, tbody, tr {
     display: block;
 }
 
-/*
-
-  background: url("../img/objects/Floor.png") no-repeat;
-
-.classic_grass_top_left { background-position: calc(0 * 16px) calc(0 * 16px); }
-.classic_grass_top { background-position: calc(0 * 16px) calc(0 * 16px); }
-.classic_grass_top_right { background-position: calc(0 * 16px) calc(0 * 16px); }
-.classic_grass_left { background-position: calc(0 * 16px) calc(0 * 16px); }
-.classic_grass_right { background-position: calc(0 * 16px) calc(0 * 16px); }
-.classic_grass_bottom_left { background-position: calc(0 * 16px) calc(0 * 16px); }
-.classic_grass_bottom { background-position: calc(0 * 16px) calc(0 * 16px); }
-.classic_grass_bottom_right { background-position: calc(0 * 16px) calc(0 * 16px); }
-.classic_grass_middle { background-position: calc(0 * 16px) calc(0 * 16px); }
-*/
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
-
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -79,4 +60,43 @@ q:before, q:after {
 table {
     border-collapse: collapse;
     border-spacing: 0;
+}
+
+#camera-pad {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+}
+
+.arrow {
+    border: solid darkgray;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+}
+
+.right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+
+.left {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+}
+
+.up {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+}
+
+.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
+.arrow:hover {
+    border-color: white;
 }
