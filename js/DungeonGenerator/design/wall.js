@@ -17,6 +17,7 @@ var getBgWallPosition = function(code) {
         case " xxxxx   ":
         case "xxxxxx  x":
         case "   xxxxxx":
+        case " x xxxxxx":
         case "x xxxx   ":
         case "xx xxxx  ":
         case "  xxxx  x":
@@ -43,6 +44,7 @@ var getBgWallPosition = function(code) {
         case "x  xx    ":
         case "xx xx x  ": return {type: "wall", x: 16 * 2, y: 16 * 2, c:code};
         case " x  x  x ":
+        case "xxx x  x ":
         case " xx x  x ":
         case " x  x xxx":
         case " xx xx xx":
@@ -51,15 +53,18 @@ var getBgWallPosition = function(code) {
         case "xx xx xxx":
         case "xxx xx xx":
         case " x  x  xx":
+        case "xx  x  xx":
         case "xx  x  x ":
         case "xxxxx xxx": return {type: "wall", x: 0, y: 16, c:code};
         case " x  xxxxx":
         case " x  xx xx":
+        case "xxx xx x ":
         case " xx xx x ": return {type: "wall", x: 16 * 3, y: 16, c:code};
         case "    x  x ":
         case "x  xxxxx ":
         case "  xxxx xx":
         case "    x  xx":
+        case "xxxxxx x ":
         case "   xxxxx ":
         case "    x xx ":
         case "   xxx xx":
@@ -75,6 +80,7 @@ var getBgWallPosition = function(code) {
         case " x  x xx ":
         case "xxxxx xx ": return {type: "wall", x: 0, y: 16, c:code};
         case "xx xx  x ":
+        case " x xx  x ":
         case " x xx xx ":
         case " xxxxx xx":
         case "xxxxx  x ": return {type: "wall", x: 16 * 5, y: 16, c:code};

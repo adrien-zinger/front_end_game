@@ -12,7 +12,7 @@ var build = function(stats) {
     return table;
 }
 
-var buildClassic = function() {
+var buildClassic = function(conf) {
     var table = build({
         size: [100, 50], 
         rooms: {
@@ -20,7 +20,7 @@ var buildClassic = function() {
                 min_size: [2, 2],
                 max_size: [5, 5],
                 max_exits: 1,
-                //position: [0, 0] //OPTIONAL pos of initial room 
+                position: [conf.x, conf.y] //OPTIONAL pos of initial room 
             },
             any: {
                 min_size: [2, 2],
