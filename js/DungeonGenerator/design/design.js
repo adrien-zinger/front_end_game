@@ -1,5 +1,6 @@
 var design = function(table, type) {
     var ret = [];
+    var initPos = {x: 1, y: 1};
     if (type == "classic") {
         for (var y = 0; y < table.length; ++y) {
             ret[y] = [];
