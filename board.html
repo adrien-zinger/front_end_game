@@ -56,11 +56,66 @@
             user = userNode;
             user.get("gameId").val(gameId => {
                 game = gun.get("games").get(gameId);
-                game.get("board").on(board => {            
-                    showBoard(JSON.parse(board), camera);
+                game.get("initialRoom").on(initialRoom => {
+                    var room = JSON.parse(initialRoom);
+                    camera.x = room.x;
+                    camera.y = room.y;
+                    game.get("board").on(board => {            
+                        showBoard(JSON.parse(board), camera);
+                    });
+                    game.get("owner").val(owner => {
+                        if (owner == localStorage['dungeon-userId']) {
+                            addPlayersInRoom(room);
+                        }
+                    });
+                    game.get("players").map().on((player, id) => {
+                        if (player && player.pos !== undefined) {
+                            showPlayer(id, JSON.parse(player.pos));
+                        }
+                    });
                 });
             });
         });
+
+        function showPlayer(id, pos) {
+            if (players[id] == undefined) {
+                players[id] = {pos: pos};
+            }
+            var player = players[id];
+            if (pos.y != player.pos.y ||
+                pos.x != player.pos.x ||
+                document.getElementById(id) === undefined) {
+                var cell = document.getElementById(player.pos.x + "-" + player.pos.y);
+                if (cell) {
+                    var p = document.createElement("div");
+                    p.id = id;
+                    p.style.width = "16px";
+                    p.style.height = "16px";
+                    p.style.backgroundImage = "url(img/Commissions/Engineer.png";
+
+                    var tmp = document.getElementById(id);
+                    if (tmp) {
+                        tmp.parentNode.removeChild(tmp)
+                    }
+                    cell.appendChild(p);
+                }
+            }
+        }
+
+        function addPlayersInRoom(room) {
+            var flags = [];
+            game.get("players").map().val((player, id) => {
+                var x = new Random().int(0, room.w) + room.x + 1;
+                var y = new Random().int(0, room.h) + room.y + 1;
+                while (flags[x + "-" + y]) {
+                    x = new Random().int(0, room.w) + room.x + 1;
+                    y = new Random().int(0, room.h) + room.y + 1;
+                }
+                flags[x + "-" + y] = true;
+                player.pos = JSON.stringify({x:x, y:y});
+                game.get("players").get(id).put(player);
+            });
+        }
 
         window.onbeforeunload = function (e) {
             game.get("players").map().val((playerVal, playerId) => {

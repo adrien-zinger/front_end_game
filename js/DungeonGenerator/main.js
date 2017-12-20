@@ -1,6 +1,9 @@
+var initial_room;
+
 var build = function(stats) {
     let dungeon = new Dungeon(stats);
     dungeon.generate();
+    initial_room = dungeon.initial_room;
     let table = [];
     for (let y = 0; y < dungeon.size[1]; y ++) {
         let row = [];

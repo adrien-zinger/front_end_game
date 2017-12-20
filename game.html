@@ -89,8 +89,13 @@
         }).then(() => {
             game.val(gameVal => {
                 var board = buildClassic({x: 0, y:0});
-                gameVal.x = 0;
-                gameVal.y = 0;
+                gameVal.initialRoom = JSON.stringify({
+                    w: initial_room.room_size[0],
+                    h: initial_room.room_size[1],
+                    x: initial_room.position[0],
+                    y: initial_room.position[1]
+                });
+                gameVal.owner = localStorage["dungeon-userId"];
                 gameVal.board = JSON.stringify(board);
                 gameVal.start = true;
                 game.put(gameVal);
