@@ -35,7 +35,7 @@ var buildClassic = function(conf) {
         min_corridor_length: 2,
         corridor_density: 2, //corridors per room
         symmetric_rooms: false, // exits must be in the center of a wall if true
-        interconnects: 1, //extra corridors to connect rooms and make circular paths. not 100% guaranteed
+        //interconnects: 1, //extra corridors to connect rooms and make circular paths. not 100% guaranteed
         max_interconnect_length: 10,
         room_count: 10,
         weapons: 2,

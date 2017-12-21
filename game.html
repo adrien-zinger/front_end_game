@@ -23,20 +23,6 @@
 
     <script src="js/utils.js"></script>
 
-    <script src="js/DungeonGenerator/design/wall.js"></script>
-    <script src="js/DungeonGenerator/design/floor.js"></script>
-    <script src="js/DungeonGenerator/design/design.js"></script>
-    <script src="js/DungeonGenerator/utils/array2d.js"></script>
-    <script src="js/DungeonGenerator/utils/index.js"></script>
-    <script src="js/DungeonGenerator/utils/rectangle.js"></script>
-    <script src="js/DungeonGenerator/utils/random.js"></script>
-    <script src="js/DungeonGenerator/const.js"></script>
-    <script src="js/DungeonGenerator/pieces/piece.js"></script>
-    <script src="js/DungeonGenerator/pieces/room.js"></script>
-    <script src="js/DungeonGenerator/pieces/corridor.js"></script>
-    <script src="js/DungeonGenerator/generators/generator.js"></script>
-    <script src="js/DungeonGenerator/generators/dungeon.js"></script>
-    <script src="js/DungeonGenerator/main.js"></script>
     <script src="js/game.js"></script>
     <script>
         initGun();
@@ -57,12 +43,16 @@
                         players[id] = player;
                         var elt = document.createElement("div");
                         elt.innerHTML = player.name;
+                        game.val(gameVal => {
+                            gameVal.playersNu = Object.entries(players).length;
+                            game.put(gameVal);
+                        });
                         document.getElementById("list").appendChild(elt);
                     }
                 });
-                game.on(gameVal => {
-                    if (gameVal.start && gameVal.start == true) {
-                        window.location.href = "./board.html";
+                game.get("start").on(start => {
+                    if (start == true) {
+                        window.location.href = "./board_builder.html";
                     }
                 });
             });
@@ -87,16 +77,9 @@
                 resolve();
             };
         }).then(() => {
+            if (Object.entries(players).length == 0) return;
             game.val(gameVal => {
-                var board = buildClassic({x: 0, y:0});
-                gameVal.initialRoom = JSON.stringify({
-                    w: initial_room.room_size[0],
-                    h: initial_room.room_size[1],
-                    x: initial_room.position[0],
-                    y: initial_room.position[1]
-                });
                 gameVal.owner = localStorage["dungeon-userId"];
-                gameVal.board = JSON.stringify(board);
                 gameVal.start = true;
                 game.put(gameVal);
             });

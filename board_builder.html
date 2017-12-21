@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>TEST</title>
+        <link rel="stylesheet" href="css/board.css">
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+
+    </body>
+
+    <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
+
+    <script src="js/utils.js"></script>
+
+    <script src="js/DungeonGenerator/design/wall.js"></script>
+    <script src="js/DungeonGenerator/design/floor.js"></script>
+    <script src="js/DungeonGenerator/design/design.js"></script>
+    <script src="js/DungeonGenerator/utils/array2d.js"></script>
+    <script src="js/DungeonGenerator/utils/index.js"></script>
+    <script src="js/DungeonGenerator/utils/rectangle.js"></script>
+    <script src="js/DungeonGenerator/utils/random.js"></script>
+    <script src="js/DungeonGenerator/const.js"></script>
+    <script src="js/DungeonGenerator/pieces/piece.js"></script>
+    <script src="js/DungeonGenerator/pieces/room.js"></script>
+    <script src="js/DungeonGenerator/pieces/corridor.js"></script>
+    <script src="js/DungeonGenerator/generators/generator.js"></script>
+    <script src="js/DungeonGenerator/generators/dungeon.js"></script>
+    <script src="js/DungeonGenerator/main.js"></script>
+    <script>
+        initGun();
+
+        var game;
+        var playersNu;
+
+        getUser().then(user => {
+            user.get("gameId").val(gameId => {
+                game = gun.get("games").get(gameId);
+                buildBoard();
+                game.get("run").on(run => {
+                    if (run) {
+                        window.location.href = "./board.html";
+                    }
+                });
+            });
+        });
+
+        var order = {current: 0, characters:[]};
+        var flags_add = [];
+        var flags_pos = [];
+        function addPlayersInRoom(room) {
+            game.get("players").map().val((player, id) => {
+                if (flags_add[id]) return;
+                flags_add[id] = true;
+                order.characters.push({playerId: id, userId: player.userId});
+                var x = new Random().int(0, room.w) + room.x + 1;
+                var y = new Random().int(0, room.h) + room.y + 1;
+                while (flags_pos[x + "-" + y]) {
+                    x = new Random().int(0, room.w) + room.x + 1;
+                    y = new Random().int(0, room.h) + room.y + 1;
+                }
+                flags_pos[x + "-" + y] = true;
+                updatePlayerAndOrder(id, {x:x, y:y});
+            });
+        }
+
+        var flags_update = [];
+        function updatePlayerAndOrder(playerId, pos) {
+            game.val(gameVal => {
+                if (flags_update[playerId]) return;
+                flags_update[playerId] = true;
+                game.get("players").get(playerId).val(player => {
+                    console.log("set pos: " + playerId);
+                    player.pos = JSON.stringify(pos);
+                    game.get("players").get(playerId).put(player);
+                    gameVal.order = JSON.stringify(order);
+                    if (--playersNu == 0) {
+                        gameVal.run = true;
+                    }
+                    game.put(gameVal);
+                });
+            });
+        }
+
+        function buildBoard() {
+            game.val(gameVal => {
+                var board = buildClassic({x: 0, y:0});
+                var room = {
+                    w: initial_room.room_size[0],
+                    h: initial_room.room_size[1],
+                    x: initial_room.position[0],
+                    y: initial_room.position[1]
+                };
+                gameVal.initialRoom = JSON.stringify(room);
+                gameVal.board = JSON.stringify(board);
+                game.put(gameVal);
+                game.get("owner").val(owner => {
+                    if (owner == localStorage['dungeon-userId']) {
+                        game.get("playersNu").val(pn => {
+                            playersNu = pn;
+                            addPlayersInRoom(room);
+                        });
+                    }
+                });
+            });
+        }
+    </script>
+</html>

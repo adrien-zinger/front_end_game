@@ -26,23 +26,21 @@
 
         var list = document.getElementById("list")
         gun.get("games").map().on((gameVal, gameId) => {
-            if (!gameVal || (gameVal.start && gameVal.start == true)) return;
-            if (games[gameId] === undefined) {
-                games[gameId] = gameVal;
-                var gameBtn = document.createElement("button");
-                gameBtn.innerText = gameVal.name;
-
-                gameBtn.onclick = function() {
-                    user.val(userVal => {
-                        userVal.gameId = gameId;
-                        user.put(userVal, () => {
-                            window.location.href = "./game.html";
-                        });
+            if (!gameVal || gameVal.start) return;
+            if (games[gameId]) return;
+            games[gameId] = true;
+            var gameBtn = document.createElement("button");
+            gameBtn.innerText = gameVal.name;
+            gameBtn.onclick = function() {
+                user.val(userVal => {
+                    userVal.gameId = gameId;
+                    user.put(userVal, () => {
+                        window.location.href = "./game.html";
                     });
-                };
-
-                list.appendChild(gameBtn);
+                });
             }
+            list.appendChild(gameBtn);
         });
+        
     </script>
 </html>

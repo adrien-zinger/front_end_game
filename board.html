@@ -22,28 +22,16 @@
 
     <script src="js/utils.js"></script>
 
-    <script src="js/DungeonGenerator/design/wall.js"></script>
-    <script src="js/DungeonGenerator/design/floor.js"></script>
-    <script src="js/DungeonGenerator/design/design.js"></script>
-    <script src="js/DungeonGenerator/utils/array2d.js"></script>
-    <script src="js/DungeonGenerator/utils/index.js"></script>
-    <script src="js/DungeonGenerator/utils/rectangle.js"></script>
-    <script src="js/DungeonGenerator/utils/random.js"></script>
-    <script src="js/DungeonGenerator/const.js"></script>
-    <script src="js/DungeonGenerator/pieces/piece.js"></script>
-    <script src="js/DungeonGenerator/pieces/room.js"></script>
-    <script src="js/DungeonGenerator/pieces/corridor.js"></script>
-    <script src="js/DungeonGenerator/generators/generator.js"></script>
-    <script src="js/DungeonGenerator/generators/dungeon.js"></script>
-    <script src="js/DungeonGenerator/main.js"></script>
     <script src="js/board.js"></script>
     <script src="js/camera.js"></script>
+    <script src="js/players.js"></script>
     <script>
         initGun();
 
         var user;
         var game;
         var players = [];
+        var order = {current: -1};
 
         var camera = {
             x: 0,
@@ -63,58 +51,42 @@
                     game.get("board").on(board => {            
                         showBoard(JSON.parse(board), camera);
                     });
-                    game.get("owner").val(owner => {
-                        if (owner == localStorage['dungeon-userId']) {
-                            addPlayersInRoom(room);
-                        }
-                    });
                     game.get("players").map().on((player, id) => {
                         if (player && player.pos !== undefined) {
                             showPlayer(id, JSON.parse(player.pos));
+                        }
+                    });
+                    game.get("order").on(orderVal => {
+                        console.log("order");
+                        if (orderVal) {
+                            onOrderChange(JSON.parse(orderVal));
                         }
                     });
                 });
             });
         });
 
-        function showPlayer(id, pos) {
-            if (players[id] == undefined) {
-                players[id] = {pos: pos};
-            }
-            var player = players[id];
-            if (pos.y != player.pos.y ||
-                pos.x != player.pos.x ||
-                document.getElementById(id) === undefined) {
-                var cell = document.getElementById(player.pos.x + "-" + player.pos.y);
-                if (cell) {
-                    var p = document.createElement("div");
-                    p.id = id;
-                    p.style.width = "16px";
-                    p.style.height = "16px";
-                    p.style.backgroundImage = "url(img/Commissions/Engineer.png";
-
-                    var tmp = document.getElementById(id);
-                    if (tmp) {
-                        tmp.parentNode.removeChild(tmp)
-                    }
-                    cell.appendChild(p);
+        function onOrderChange(_order) {
+            console.log(_order);
+            if (_order.current != order.current) {
+                var id = _order.characters[_order.current].player;
+                var player = players[id];
+                var cell = document.getElementById(player.pos.x + "-"
+                        + player.pos.y);
+                d = document.createElement("div");
+                d.id = id + "-current";
+                d.style.width = "16px";
+                d.style.height = "16px";
+                d.style.zIndex = 0;
+                d.style.backgroundColor = "#8bc34a85";
+                d.style.position = "absolute";
+                var tmp = document.getElementById(d.id);
+                if (tmp) {
+                    tmp.parentNode.removeChild(tmp);
                 }
+                cell.appendChild(d);
             }
-        }
-
-        function addPlayersInRoom(room) {
-            var flags = [];
-            game.get("players").map().val((player, id) => {
-                var x = new Random().int(0, room.w) + room.x + 1;
-                var y = new Random().int(0, room.h) + room.y + 1;
-                while (flags[x + "-" + y]) {
-                    x = new Random().int(0, room.w) + room.x + 1;
-                    y = new Random().int(0, room.h) + room.y + 1;
-                }
-                flags[x + "-" + y] = true;
-                player.pos = JSON.stringify({x:x, y:y});
-                game.get("players").get(id).put(player);
-            });
+            order = _order;
         }
 
         window.onbeforeunload = function (e) {
@@ -124,6 +96,5 @@
                 }
             });
         };
-
     </script>
 </html>
