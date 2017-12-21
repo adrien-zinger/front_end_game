@@ -31,6 +31,7 @@
         var user;
         var game;
         var players = [];
+        var playersNu = -1;
         var order = {current: -1};
 
         var camera = {
@@ -51,40 +52,48 @@
                     game.get("board").on(board => {            
                         showBoard(JSON.parse(board), camera);
                     });
-                    game.get("players").map().on((player, id) => {
-                        if (player && player.pos !== undefined) {
-                            showPlayer(id, JSON.parse(player.pos));
-                        }
-                    });
-                    game.get("order").on(orderVal => {
-                        console.log("order");
-                        if (orderVal) {
-                            onOrderChange(JSON.parse(orderVal));
-                        }
+                    game.get("playersNu").val(pn => {
+                        playersNu = pn;
+                        onPlayersNuSet();
                     });
                 });
             });
         });
 
+        function onPlayersNuSet() {
+            game.get("players").map().on((player, id) => {
+                console.log("onPlayersNuSet players: " + id);
+                showPlayer(id, JSON.parse(player.pos));
+            });
+            game.get("order").on(orderVal => {
+                console.log("order");
+                if (orderVal) {
+                    onOrderChange(JSON.parse(orderVal));
+                }
+            });
+        }
+
         function onOrderChange(_order) {
             console.log(_order);
             if (_order.current != order.current) {
                 var id = _order.characters[_order.current].player;
-                var player = players[id];
-                var cell = document.getElementById(player.pos.x + "-"
-                        + player.pos.y);
-                d = document.createElement("div");
-                d.id = id + "-current";
-                d.style.width = "16px";
-                d.style.height = "16px";
-                d.style.zIndex = 0;
-                d.style.backgroundColor = "#8bc34a85";
-                d.style.position = "absolute";
-                var tmp = document.getElementById(d.id);
-                if (tmp) {
-                    tmp.parentNode.removeChild(tmp);
-                }
-                cell.appendChild(d);
+                game.get("players").get(id).val(player => {
+                    var pos = JSON.parse(player.pos);
+                    var cell = document.getElementById(pos.x + "-" + y);
+                    if (cell === undefined) return;
+                    d = document.createElement("div");
+                    d.id = id + "-current";
+                    d.style.width = "16px";
+                    d.style.height = "16px";
+                    d.style.zIndex = 0;
+                    d.style.backgroundColor = "#8bc34a85";
+                    d.style.position = "absolute";
+                    var tmp = document.getElementById(d.id);
+                    if (tmp) {
+                        tmp.parentNode.removeChild(tmp);
+                    }
+                    cell.appendChild(d);
+                });
             }
             order = _order;
         }
