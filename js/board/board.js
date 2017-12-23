@@ -11,7 +11,6 @@ function showBoard(board, camera) {
     while (dboard.firstChild) {
         dboard.removeChild(dboard.firstChild);
     }
-    console.log(board);
     for (var y = 0; y < camera.h; ++y) {
         var tr = document.createElement("tr");
         for (var x = 0; x < camera.w; ++x) {

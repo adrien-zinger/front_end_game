@@ -41,15 +41,13 @@ function removePathNode(list, n) {
 	return list;
 }
 
-function searchPath(startx, starty, endx, endy) {
-	console.log("Search path from %s %s to %s %s", startx, starty, endx, endy);
+function astar(startx, starty, endx, endy) {
 	var openList   = [];
 	var closedList = [];
 	openList.push(initPathNode(startx, starty));
 	var security = 0;
 	while(openList.length > 0) {
 		if (++security == 500) {
-			console.log("security break search path");
 			return;
 		}
 		var lowInd = 0;
@@ -60,7 +58,6 @@ function searchPath(startx, starty, endx, endy) {
 		}
 		var currentNode = openList[lowInd];
 		if(currentNode.x == endx && currentNode.y == endy) {
-			console.log("end path");
 			var curr = currentNode;
 			var ret = [];
 			while(curr.parent) {
@@ -115,38 +112,37 @@ function searchPath(startx, starty, endx, endy) {
 function getPathChilds(x, y) {
 	//console.log("get childs of %s %s", x, y);
 	let ret = [];
-	var v_ = struct_robot.visited;
+	var v_ = board;
 	if (v_[y - 1] !== undefined && v_[y - 1][x] !== undefined &&
-		v_[y - 1][x] != 1) {
+		v_[y - 1][x].type != "wall") { // TODO != wall to "visitable"
 		ret.push(initPathNode(x, y - 1));
 	}
 	if (v_[y - 1] !== undefined && v_[y - 1][x + 1] != undefined &&
-		v_[y - 1][x + 1] != 1) {
+		v_[y - 1][x + 1] != "wall") {
 		ret.push(initPathNode(x + 1, y - 1));
 	}
 	if (v_[y] !== undefined && v_[y][x + 1] !== undefined &&
-		v_[y][x + 1] != 1) {
+		v_[y][x + 1] != "wall") {
 		ret.push(initPathNode(x + 1, y));
 	}
 	if (v_[y + 1] !== undefined && v_[y + 1][x + 1] !== undefined &&
-		v_[y + 1][x + 1] != 1) {
+		v_[y + 1][x + 1] != "wall") {
 		ret.push(initPathNode(x + 1, y + 1));
 	}
 	if (v_[y + 1] !== undefined && v_[y + 1][x] !== undefined &&
-		v_[y + 1][x] != 1) {
+		v_[y + 1][x] != "wall") {
 		ret.push(initPathNode(x, y + 1));
 	}
 	if (v_[y + 1] !== undefined && v_[y + 1][x - 1] !== undefined &&
-		v_[y + 1][x - 1] != 1) {
+		v_[y + 1][x - 1] != "wall") {
 		ret.push(initPathNode(x - 1, y + 1));
 	}
 	if (v_[y] !== undefined && v_[y][x - 1] !== undefined &&
-		v_[y][x - 1] != 1) {
-
+		v_[y][x - 1] != "wall") {
 		ret.push(initPathNode(x - 1, y));
 	}
 	if (v_[y - 1] !== undefined && v_[y - 1][x - 1] !== undefined &&
-		v_[y - 1][x - 1] != 1) {
+		v_[y - 1][x - 1] != "wall") {
 		ret.push(initPathNode(x - 1, y - 1));
 	}
 	return ret;
