@@ -22,9 +22,9 @@
 
     <script src="js/utils.js"></script>
 
-    <script src="js/board.js"></script>
-    <script src="js/camera.js"></script>
-    <script src="js/players.js"></script>
+    <script src="js/board/board.js"></script>
+    <script src="js/board/camera.js"></script>
+    <script src="js/board/players.js"></script>
     <script>
         initGun();
 
@@ -71,31 +71,6 @@
                     onOrderChange(JSON.parse(orderVal));
                 }
             });
-        }
-
-        function onOrderChange(_order) {
-            console.log(_order);
-            if (_order.current != order.current) {
-                var id = _order.characters[_order.current].player;
-                game.get("players").get(id).val(player => {
-                    var pos = JSON.parse(player.pos);
-                    var cell = document.getElementById(pos.x + "-" + y);
-                    if (cell === undefined) return;
-                    d = document.createElement("div");
-                    d.id = id + "-current";
-                    d.style.width = "16px";
-                    d.style.height = "16px";
-                    d.style.zIndex = 0;
-                    d.style.backgroundColor = "#8bc34a85";
-                    d.style.position = "absolute";
-                    var tmp = document.getElementById(d.id);
-                    if (tmp) {
-                        tmp.parentNode.removeChild(tmp);
-                    }
-                    cell.appendChild(d);
-                });
-            }
-            order = _order;
         }
 
         window.onbeforeunload = function (e) {

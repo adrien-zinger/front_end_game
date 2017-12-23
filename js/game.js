@@ -42,7 +42,6 @@ function initPlayer(playerName) {
                     });
                 });
             });
-            //*/
         });
     });
 }
@@ -51,9 +50,8 @@ function getNewPlayer(playerName) {
     var ret = {};
     ret[playerName] = {
         name: playerName,
-        strentgh: 1,
+        strentgh: 0,
         agility: 1,
-        magic: 1,
         life: 10,
         move: 3,
         action: 3,
