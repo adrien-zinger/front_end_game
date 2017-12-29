@@ -1,7 +1,3 @@
-/**
- * 
- */
-
 
 /**
  * 
@@ -44,32 +40,4 @@ function setImage(board, y, x, td) {
     td.onclick = function() {
         console.log(board[y][x].c);
     }
-}
-
-/**
- * 
- */
-function onOrderChange(_order) {
-    console.log(_order);
-    if (_order.current != order.current) {
-        var id = _order.characters[_order.current].player;
-        game.get("players").get(id).val(player => {
-            var pos = JSON.parse(player.pos);
-            var cell = document.getElementById(pos.x + "-" + y);
-            if (cell === undefined) return;
-            d = document.createElement("div");
-            d.id = id + "-current";
-            d.style.width = "16px";
-            d.style.height = "16px";
-            d.style.zIndex = 0;
-            d.style.backgroundColor = "#8bc34a85";
-            d.style.position = "absolute";
-            var tmp = document.getElementById(d.id);
-            if (tmp) {
-                tmp.parentNode.removeChild(tmp);
-            }
-            cell.appendChild(d);
-        });
-    }
-    order = _order;
 }

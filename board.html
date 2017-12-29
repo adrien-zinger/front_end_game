@@ -16,6 +16,11 @@
             <div class="arrow down" style="position: absolute; bottom: 5px; left: 50%" onclick="down()"></div>
             <table id="board" cellspacing="0" cellpadding="0" border="0"></table>
         </div>
+        <div id="info-game" style="float: right">
+            <div class="infos">Au tour du joueur</div>
+            <div class="infos" id="current-player"></div>
+            <div class="infos" id="current-user"></div>
+        </div>
     </body>
 
     <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
@@ -25,6 +30,8 @@
     <script src="js/board/board.js"></script>
     <script src="js/board/camera.js"></script>
     <script src="js/board/players.js"></script>
+    <script src="js/board/order.js"></script>
+    <script src="js/board/mouse.js"></script>
     <script>
         initGun();
 
@@ -33,7 +40,6 @@
         var board;
         var players = [];
         var playersNu = -1;
-        var order = {current: -1};
 
         var camera = {
             x: 0,

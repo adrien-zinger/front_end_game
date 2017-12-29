@@ -17,6 +17,12 @@ p {
 	color: darkgray;
 }
 
+.infos {
+	font-family: "Manaspace";
+	font-size: 12px;
+	color: darkgray;
+}
+
 a {
 	font-family: "Manaspace";
 	font-size: 22px;
