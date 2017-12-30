@@ -1,7 +1,6 @@
 function showPlayer(id, pos) {
-    console.log("showPlayer");
     if (players[id] === undefined) {
-        players[id] = {pos: pos};
+        players[id] = {x: pos.x, y: pos.y};
     }
     var player = players[id];
     var cell = document.getElementById(pos.x + "-"
@@ -12,16 +11,41 @@ function showPlayer(id, pos) {
         p.style.width = "16px";
         p.style.height = "16px";
         p.style.backgroundImage =
-            "url(img/Commissions/Engineer.png";
+            "url(img/Characters/chars.png";
         p.style.position = "absolute";
+        p.style.backgroundPositionX = "0px";
+        p.style.backgroundPositionY = -(16 * 2) + "px";
         p.style.zIndex = 1;
         var tmp = document.getElementById(id);
         if (tmp) {
-            console.log("remove child");
             tmp.parentNode.removeChild(tmp)
         }
-        console.log("appendChild player");
         cell.appendChild(p);
     }
-    players[id].pos = pos;
+    players[id].x = pos.x;
+    players[id].y = pos.y;
+}
+
+function reDrawPlayers() {
+    if (players) {
+        for (id in players) {
+            showPlayer(id, {x: players[id].x, y: players[id].y});
+        }
+    }
+}
+
+function setCharacteristic(id, map) {
+    game.get("players").get(id).val(player => {
+        for (name in map) {
+            var act = map[name][0];
+            var num = map[name].slice(1, map[name].length);
+            if (act == "=") {
+                player[name] = num;
+            } else if (act == "+") {
+                player[name] += num;
+            } else if (act == "-") {
+                player[name] -= num;
+            }
+        }
+    });
 }

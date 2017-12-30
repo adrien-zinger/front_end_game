@@ -20,6 +20,7 @@
             <div class="infos">Au tour du joueur</div>
             <div class="infos" id="current-player"></div>
             <div class="infos" id="current-user"></div>
+            <button onclick="pass()">Passer</button>
         </div>
     </body>
 
@@ -70,11 +71,9 @@
 
         function onPlayersNuSet() {
             game.get("players").map().on((player, id) => {
-                console.log("onPlayersNuSet players: " + id);
-                showPlayer(id, JSON.parse(player.pos));
+                showPlayer(id, {x: player.x, y: player.y});
             });
             game.get("order").on(orderVal => {
-                console.log("order");
                 if (orderVal) {
                     onOrderChange(JSON.parse(orderVal));
                 }

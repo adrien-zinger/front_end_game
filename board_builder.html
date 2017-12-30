@@ -72,7 +72,8 @@
                 flags_update[playerId] = true;
                 game.get("players").get(playerId).val(player => {
                     console.log("set pos: " + playerId);
-                    player.pos = JSON.stringify(pos);
+                    player.x = pos.x;
+                    player.y = pos.y;
                     game.get("players").get(playerId).put(player);
                     gameVal.order = JSON.stringify(order);
                     if (--playersNu == 0) {

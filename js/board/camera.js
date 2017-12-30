@@ -31,7 +31,10 @@ function updateCamera(camera) {
     game.get("board").val(board => {
         var b = JSON.parse(board);
         if (!restrictCamera(b, camera)) return;
+        // reDraw all
         showBoard(b, camera);
+        reDrawPlayers();
+        reDrawOrder();
     });
 }
 

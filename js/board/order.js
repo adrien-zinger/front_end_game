@@ -31,7 +31,7 @@ function onOrderChange(_order) {
             }
         }
         game.get("players").get(id).val(player => {
-            var pos = JSON.parse(player.pos);
+            var pos = {x: player.x, y: player.y};
             var cell = document.getElementById(pos.x + "-" + pos.y);
             if (cell === undefined) return;
             d = document.createElement("div");
@@ -53,4 +53,25 @@ function onOrderChange(_order) {
         });
     }
     order = _order;
+}
+
+function reDrawOrder() {
+    if (order.current != -1) {
+        var player = players[order.characters[order.current].playerId];
+        var pos = {x: player.x, y: player.y};
+        var cell = document.getElementById(pos.x + "-" + pos.y);
+        if (cell === undefined) return;
+        d = document.createElement("div");
+        d.id = id + "-current";
+        d.style.width = "16px";
+        d.style.height = "16px";
+        d.style.zIndex = 0;
+        d.style.backgroundColor = "#8bc34a85";
+        d.style.position = "absolute";
+        var tmp = document.getElementById(d.id);
+        if (tmp) {
+            tmp.parentNode.removeChild(tmp);
+        }
+        cell.appendChild(d);
+    }
 }

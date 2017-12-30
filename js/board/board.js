@@ -12,7 +12,7 @@ function showBoard(board, camera) {
         for (var x = 0; x < camera.w; ++x) {
             var td = document.createElement("td");
             setImage(board, y + camera.y, x + camera.x, td);
-            td.id = x + "-" + y;
+            td.id = (x + camera.x)+ "-" + (y + camera.y);
             td.addEventListener("mouseover", event => onMouseOver(event.target), false);
             tr.appendChild(td);
         }
