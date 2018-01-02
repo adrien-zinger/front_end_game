@@ -42,6 +42,7 @@ function removePathNode(list, n) {
 }
 
 function astar(startx, starty, endx, endy) {
+	console.log("a* : " + startx + "-" + starty + " : " + endx + "-" + endy);
 	var openList   = [];
 	var closedList = [];
 	openList.push(initPathNode(startx, starty));
@@ -110,40 +111,36 @@ function astar(startx, starty, endx, endy) {
 }
 
 function getPathChilds(x, y) {
-	//console.log("get childs of %s %s", x, y);
 	let ret = [];
 	var v_ = board;
 	if (v_[y - 1] !== undefined && v_[y - 1][x] !== undefined &&
-		v_[y - 1][x].type != "wall") { // TODO != wall to "visitable"
+		v_[y - 1][x].type != "wall" && hasNothingOnIt(x, y - 1)) {
 		ret.push(initPathNode(x, y - 1));
 	}
-	if (v_[y - 1] !== undefined && v_[y - 1][x + 1] != undefined &&
-		v_[y - 1][x + 1] != "wall") {
-		ret.push(initPathNode(x + 1, y - 1));
-	}
 	if (v_[y] !== undefined && v_[y][x + 1] !== undefined &&
-		v_[y][x + 1] != "wall") {
+		v_[y][x + 1].type != "wall" && hasNothingOnIt(x + 1, y)) {
 		ret.push(initPathNode(x + 1, y));
 	}
-	if (v_[y + 1] !== undefined && v_[y + 1][x + 1] !== undefined &&
-		v_[y + 1][x + 1] != "wall") {
-		ret.push(initPathNode(x + 1, y + 1));
-	}
 	if (v_[y + 1] !== undefined && v_[y + 1][x] !== undefined &&
-		v_[y + 1][x] != "wall") {
+		v_[y + 1][x].type != "wall" && hasNothingOnIt(x, y + 1)) {
 		ret.push(initPathNode(x, y + 1));
 	}
-	if (v_[y + 1] !== undefined && v_[y + 1][x - 1] !== undefined &&
-		v_[y + 1][x - 1] != "wall") {
-		ret.push(initPathNode(x - 1, y + 1));
-	}
 	if (v_[y] !== undefined && v_[y][x - 1] !== undefined &&
-		v_[y][x - 1] != "wall") {
+		v_[y][x - 1].type != "wall" && hasNothingOnIt(x - 1, y)) {
 		ret.push(initPathNode(x - 1, y));
 	}
-	if (v_[y - 1] !== undefined && v_[y - 1][x - 1] !== undefined &&
-		v_[y - 1][x - 1] != "wall") {
-		ret.push(initPathNode(x - 1, y - 1));
-	}
 	return ret;
+}
+
+/**
+ * Verifie s'il n'y a pas de joueurs ou d'objets impassable sur
+ * le sol en x, y.
+ */
+function hasNothingOnIt(x, y) {
+	for (id in players) {
+		if (players[id].x == x && players[id].y == y) {
+			return false;
+		}
+	}
+	return true;
 }

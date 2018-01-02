@@ -24,7 +24,8 @@
         </div>
     </body>
 
-    <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
+    <!--<script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>-->
+    <script src="js/gun.min.js"></script>
 
     <script src="js/utils.js"></script>
 
@@ -33,6 +34,7 @@
     <script src="js/board/players.js"></script>
     <script src="js/board/order.js"></script>
     <script src="js/board/mouse.js"></script>
+    <script src="js/board/astar.js"></script>
     <script>
         initGun();
 
@@ -58,8 +60,8 @@
                     camera.x = room.x;
                     camera.y = room.y;
                     game.get("board").on(_board => {
-                        board = _board;
-                        showBoard(JSON.parse(board), camera);
+                        board = JSON.parse(_board);
+                        showBoard(board, camera);
                     });
                     game.get("playersNu").val(pn => {
                         playersNu = pn;
@@ -71,7 +73,7 @@
 
         function onPlayersNuSet() {
             game.get("players").map().on((player, id) => {
-                showPlayer(id, {x: player.x, y: player.y});
+                onPlayerChange(id, player);
             });
             game.get("order").on(orderVal => {
                 if (orderVal) {

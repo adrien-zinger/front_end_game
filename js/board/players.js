@@ -1,7 +1,15 @@
-function showPlayer(id, pos) {
+function onPlayerChange(id, player) {
     if (players[id] === undefined) {
-        players[id] = {x: pos.x, y: pos.y};
+        players[id] = player;
+        showPlayer(id, {x: player.x, y: player.y});
     }
+    if (players[id].x != player.x || players[id].y != player.y) {
+        showPlayer(id, {x: player.x, y: player.y});
+    }
+    players[id] = player;
+}
+
+function showPlayer(id, pos) {
     var player = players[id];
     var cell = document.getElementById(pos.x + "-"
                                     + pos.y);
@@ -22,8 +30,6 @@ function showPlayer(id, pos) {
         }
         cell.appendChild(p);
     }
-    players[id].x = pos.x;
-    players[id].y = pos.y;
 }
 
 function reDrawPlayers() {
