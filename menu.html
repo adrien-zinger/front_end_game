@@ -10,15 +10,14 @@
             <p id="hello-user"></p>
             <form id="new" method="GET">
                 <input type="text" id="name">
-                <input type="submit" value="NOUVEAU">
+                <input type="submit" value="NOUVELLE PARTIE">
             </form>
-            <button style="margin-top: 10px;" onclick="load()">CHARGER</button>
+            <button style="margin-top: 10px;" onclick="join()">REJOINDRE UNE PARTIE</button>
+            <button style="margin-top: 10px;" onclick="players()">PERSONNAGES</button>
         </div>
     </body>
 
-    <!--<script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>-->
     <script src="js/gun.min.js"></script>
-
     <script src="js/utils.js"></script>
     <script>
         initGun();
@@ -27,7 +26,8 @@
         getUser().then(userNode => {
             user = userNode;
             user.get("name").val(name => {
-                document.getElementById("hello-user").innerText = name;
+                document.getElementById("hello-user").innerText
+                    = "Bonjour " + name;
             });
         });
 
@@ -45,9 +45,12 @@
             }
         });
 
-        function load() {
+        function join() {
             window.location.href = "./games.html";
         }
 
+        function players() {
+            window.location.href = "./players.html";
+        }
     </script>
 </html>

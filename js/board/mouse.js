@@ -21,8 +21,16 @@ function onMouseOver(el) {
     }
     var tmp = cell.id.split("-");
     var pos = {x: parseInt(tmp[0]), y: parseInt(tmp[1])};
+
     if (board[pos.y][pos.x].type == "floor") {
         return onMouseOverTheFloor(pos);
+    }
+}
+
+function updateCurrentPlayerImage() {
+    if (playerInInfo != null && 
+        playerInInfo.userId == localStorage['dungeon-userId']) {
+            console.log("update image todo");
     }
 }
 

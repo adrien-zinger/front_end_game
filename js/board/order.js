@@ -46,10 +46,7 @@ function onOrderChange(_order) {
                 tmp.parentNode.removeChild(tmp);
             }
             cell.appendChild(d);
-
-            document.getElementById("current-player").innerText = player.name;
-            console.log("order player", player);
-            console.log("order user", user);
+            setPlayerInfo(player);
         });
     }
     order = _order;

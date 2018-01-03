@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>TEST</title>
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/game.css">
+    </head>
+    <body>
+        <div class="center-content">
+            <h2 id="name"></h2>
+            <div id="list" class="div-group">
+            </div>
+        </div>
+    </body>
+
+    <script src="js/gun.min.js"></script>
+    <script src="js/utils.js"></script>
+
+    <script>
+        initGun();
+
+        getUser().then(user => {
+            var playerName = window.location.search.substring(
+                window.location.search.lastIndexOf("=")+1);
+            user.get("players").get(playerName).val(player => {
+                var elt = document.createElement("div");
+                elt.innerHTML = "Nom " + player.name;
+                document.getElementById("list").appendChild(elt);
+
+                elt = document.createElement("div");
+                elt.innerHTML = "Points de mouvement " + player.move;
+                document.getElementById("list").appendChild(elt);
+
+                elt = document.createElement("div");
+                elt.innerHTML = "Points de mouvement par tour " + player.moveRound;
+                document.getElementById("list").appendChild(elt);
+
+                elt = document.createElement("div");
+                elt.innerHTML = "Points d'action " + player.action;
+                document.getElementById("list").appendChild(elt);
+
+                elt = document.createElement("div");
+                elt.innerHTML = "Points d'action' par tour " + player.actionRound;
+                document.getElementById("list").appendChild(elt);
+
+                elt = document.createElement("div");
+                elt.innerHTML = "Force " + player.strength;
+                document.getElementById("list").appendChild(elt);
+                
+                elt = document.createElement("div");
+                elt.innerHTML = "Dextérité " + player.dexterity;
+                document.getElementById("list").appendChild(elt);
+
+                elt = document.createElement("div");
+                elt.innerHTML = "Constitution " + player.constitution;
+                document.getElementById("list").appendChild(elt);
+
+                elt = document.createElement("div");
+                elt.innerHTML = "Constitution par tour" + player.constitutionRound;
+                document.getElementById("list").appendChild(elt);
+
+                elt = document.createElement("div");
+                elt.innerHTML = "Intéligence " + player.intelligence;
+                document.getElementById("list").appendChild(elt);
+
+                elt = document.createElement("div");
+                elt.innerHTML = "Détection " + player.detection;
+                document.getElementById("list").appendChild(elt);
+
+                elt = document.createElement("div");
+                elt.innerHTML = "Crochetage " + player.lockPicking;
+                document.getElementById("list").appendChild(elt);
+
+                elt = document.createElement("div");
+                elt.innerHTML = "Désamorçage " + player.defusing;
+                document.getElementById("list").appendChild(elt);
+
+                elt = document.createElement("div");
+                elt.innerHTML = "Discrétion " + player.discretion;
+                document.getElementById("list").appendChild(elt);
+
+                elt = document.createElement("div");
+                elt.innerHTML = "Acrobaties " + player.acrobatics;
+                document.getElementById("list").appendChild(elt);
+                
+                elt = document.createElement("div");
+                elt.innerHTML = "Art de la magie " + player.artOfMagic;
+                document.getElementById("list").appendChild(elt);
+
+                elt = document.createElement("div");
+                elt.innerHTML = "Ouïe " + player.hearing;
+                document.getElementById("list").appendChild(elt);
+
+                elt = document.createElement("div");
+                elt.innerHTML = "Vue " + player.view;
+                document.getElementById("list").appendChild(elt);
+
+                elt = document.createElement("div");
+                elt.innerHTML = "Archerie " + player.precision;
+                document.getElementById("list").appendChild(elt);
+
+                elt = document.createElement("div");
+                elt.innerHTML = "Lame courte " + player.knifes;
+                document.getElementById("list").appendChild(elt);
+
+                elt = document.createElement("div");
+                elt.innerHTML = "Hache " + player.axe;
+                document.getElementById("list").appendChild(elt);
+
+                elt = document.createElement("div");
+                elt.innerHTML = "Lancé " + player.send;
+                document.getElementById("list").appendChild(elt);
+
+                elt = document.createElement("div");
+                elt.innerHTML = "Arme contondante " + player.blunt;
+                document.getElementById("list").appendChild(elt);
+
+                elt = document.createElement("div");
+                elt.innerHTML = "Lame longue " + player.swords;
+                document.getElementById("list").appendChild(elt);
+
+                elt = document.createElement("div");
+                elt.innerHTML = "Arme à deux main " + player.toHandSwords;
+                document.getElementById("list").appendChild(elt);
+
+                elt = document.createElement("div");
+                elt.innerHTML = "Armure lourde " + player.heavyArmor;
+                document.getElementById("list").appendChild(elt);
+
+                elt = document.createElement("div");
+                elt.innerHTML = "Armure legère " + player.lightArmor;
+                document.getElementById("list").appendChild(elt);
+
+                elt = document.createElement("div");
+                elt.innerHTML = "Alteration " + player.alteration;
+                document.getElementById("list").appendChild(elt);
+
+                elt = document.createElement("div");
+                elt.innerHTML = "Destruction " + player.destruction;
+                document.getElementById("list").appendChild(elt);
+
+                elt = document.createElement("div");
+                elt.innerHTML = "Enchantement " + player.enchant;
+                document.getElementById("list").appendChild(elt);
+
+                elt = document.createElement("div");
+                elt.innerHTML = "Illusion " + player.illusion;
+                document.getElementById("list").appendChild(elt);
+
+            });
+        });
+
+    </script>
+</html>

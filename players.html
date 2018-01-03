@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>TEST</title>
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/games.css">
+    </head>
+    <body>
+        <div class="center-content">
+            <form id="new" method="GET">
+                <input type="text" id="name">
+                <input type="submit" value="NOUVEAU PERSONNAGE">
+            </form>
+            <h2>Liste</h2>
+            <div id="list" class="btn-group">
+            </div>
+        </div>
+    </body>
+
+    <script src="js/gun.min.js"></script>
+    <script src="js/utils.js"></script>
+    <script src=js/game.js></script>
+
+    <script>
+        initGun();
+
+        var flags = [];
+        var user;
+
+        getUser().then(userN => {
+            user = userN;
+            user.get("players").map().on((player, name) => {
+                var list = document.getElementById("list");
+                if (!player || flags[name]) return;
+                flags[name] = true;
+                var btn = document.createElement("button");
+                btn.innerText = name;
+                btn.onclick = function() {
+                    window.location.href = "./player.html?name=" + name;
+                }
+                list.appendChild(btn);
+            });
+        });
+
+        document.querySelector("#new").addEventListener("submit", function(e){
+            e.preventDefault();
+            var name = document.getElementById("name").value;
+            if (name && !flags[name]) {
+                initPlayer(name);
+            }
+        });
+    </script>
+</html>
