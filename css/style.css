@@ -17,6 +17,18 @@ p {
 	color: darkgray;
 }
 
+th {
+    font-family: "Manaspace";
+	font-size: 22px;
+	color: darkgray;
+}
+
+td {
+    font-family: "Manaspace";
+	font-size: 18px;
+	color: white;
+}
+
 .infos {
 	font-family: "Manaspace";
 	font-size: 12px;

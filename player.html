@@ -1,155 +1,233 @@
 <!doctype html>
 <html lang="fr">
-    <head>
-        <meta charset="utf-8">
-        <title>TEST</title>
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="css/game.css">
-    </head>
-    <body>
-        <div class="center-content">
-            <h2 id="name"></h2>
-            <div id="list" class="div-group">
-            </div>
-        </div>
-    </body>
 
-    <script src="js/gun.min.js"></script>
-    <script src="js/utils.js"></script>
+<head>
+    <meta charset="utf-8">
+    <title>TEST</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
 
-    <script>
-        initGun();
+<body>
+    <table BORDER=1 BORDERCOLOR=white BORDERCOLORLIGHT=white BORDERCOLORDARK=darkgrey>
+        <tr>
+            <th>Nom</th>
+            <th>Or</th>
+        </tr>
+        <tr>
+            <td id="name"></td>
+            <td id="gold"></td>
+        </tr>
+    </table>
+    <table BORDER=1 BORDERCOLOR=white BORDERCOLORLIGHT=white BORDERCOLORDARK=darkgrey>
+        <tr>
+            <th>Classe</th>
+            <td><button id="changeClasse">changer</button></td>
+        </tr>
+        <tr>
+            <td id="classeName"></td>
+            <td style="padding: 16px;"><div id="classeImage"></div></td>
+        </tr>
+    </table>
+    <table BORDER=1 BORDERCOLOR=white BORDERCOLORLIGHT=white BORDERCOLORDARK=darkgrey>
+        <tr>
+            <th></th>
+            <th>Points</th>
+            <th>Gains par tour</th>
+        </tr>
+        <tr>
+            <th>Mouvement</th>
+            <td id="move"></td>
+            <td id="moveRound"></td>
+        </tr>
+        <tr>
+            <th>Action</th>
+            <td id="action"></td>
+            <td id="actionRound"></td>
+        </tr>
+        <tr>
+            <th>Condition</th>
+            <td id="constitution"></td>
+            <td id="constitutionRound"></td>
+        </tr>
+    </table>
+    <table BORDER=1 BORDERCOLOR=white BORDERCOLORLIGHT=white BORDERCOLORDARK=darkgrey>
+        <tr>
+            <th>Force</th>
+            <td id="strength"></td>
+            <td><button id="strengthTraining"></button></td>
+        </tr>
+        <tr>
+            <th>Dexterite</th>
+            <td id="dexterity"></td>
+            <td><button id="dexterityTraining"></button></td>
+        </tr>
+        <tr>
+            <th>Intelligence</th>
+            <td id="intelligence"></td>
+            <td><button id="intelligenceTraining"></button></td>
+        </tr>
+        <tr>
+            <th>Art de la magie</th>
+            <td id="artOfMagic"></td>
+            <td><button id="artOfMagicTraining"></button></td>
+        </tr>
+        <tr>
+            <th>Detection</th>
+            <td id="detection"></td>
+            <td><button id="detectionTraining"></button></td>
+        </tr>
+        <tr>
+            <th>Crochetage</th>
+            <td id="lockPicking"></td>
+            <td><button id="lockPickingTraining"></button></td>
+        </tr>
+        <tr>
+            <th>Desamorcage</th>
+            <td id="defusing"></td>
+            <td><button id="defusingTraining"></button></td>
+        </tr>
+        <tr>
+            <th>Discretion</th>
+            <td id="discretion"></td>
+            <td><button id="discretionTraining"></button></td>
+        </tr>
+        <tr>
+            <th>Ouie</th>
+            <td id="hearing"></td>
+            <td><button id="hearingTraining"></button></td>
+        </tr>
+        <tr>
+            <th>Vue</th>
+            <td id="view"></td>
+            <td><button id="viewTraining"></button></td>
+        </tr>
+        <tr>
+            <th>Archerie</th>
+            <td id="archery"></td>
+            <td><button id="archeryTraining"></button></td>
+        </tr>
+        <tr>
+            <th>Lames courtes</th>
+            <td id="knifes"></td>
+            <td><button id="knifesTraining"></button></td>
+        </tr>
+        <tr>
+            <th>Lance d'objects</th>
+            <td id="launch"></td>
+            <td><button id="launchTraining"></button></td>
+        </tr>
+        <tr>
+            <th>Armure legere</th>
+            <td id="lightArmor"></td>
+            <td><button id="lightArmorTraining"></button></td>
+        </tr>
+        <tr>
+            <th>Hache</th>
+            <td id="axe"></td>
+            <td><button id="axeTraining"></button></td>
+        </tr>    
+        <tr>
+            <th>Lames longues</th>
+            <td id="swords"></td>
+            <td><button id="swordsTraining"></button></td>
+        </tr>
+        <tr>
+            <th>Arme contondante</th>
+            <td id="blunts"></td>
+            <td><button id="bluntsTraining"></button></td>
+        </tr>
+            <th>Armure lourde</th>
+            <td id="heavyArmor"></td>
+            <td><button id="heavyArmorTraining"></button></td>
+        </tr>
+        <tr>
+            <th>Alteration</th>
+            <td id="alteration"></td>
+            <td><button id="alterationTraining"></button></td>
+        </tr>
+        <tr>
+            <th>Destruction</th>
+            <td id="destruction"></td>
+            <td><button id="destructionTraining"></button></td>
+        </tr>
+        <tr>
+            <th>Enchantement</th>
+            <td id="enchant"></td>
+            <td><button id="enchantTraining"></button></td>
+        </tr>
+        <tr>
+            <th>Illusion</th>
+            <td id="illusion"></td>
+            <td><button id="illusionTraining"></button></td>
+        </tr>
+    </table>
+    </div>
+</body>
 
-        getUser().then(user => {
-            var playerName = window.location.search.substring(
-                window.location.search.lastIndexOf("=")+1);
-            user.get("players").get(playerName).val(player => {
-                var elt = document.createElement("div");
-                elt.innerHTML = "Nom " + player.name;
-                document.getElementById("list").appendChild(elt);
+<script src="js/gun.min.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/players/characteristics.js"></script>
+<script src="js/players/classes.js"></script>
 
-                elt = document.createElement("div");
-                elt.innerHTML = "Points de mouvement " + player.move;
-                document.getElementById("list").appendChild(elt);
+<script>
+    initGun();
 
-                elt = document.createElement("div");
-                elt.innerHTML = "Points de mouvement par tour " + player.moveRound;
-                document.getElementById("list").appendChild(elt);
-
-                elt = document.createElement("div");
-                elt.innerHTML = "Points d'action " + player.action;
-                document.getElementById("list").appendChild(elt);
-
-                elt = document.createElement("div");
-                elt.innerHTML = "Points d'action' par tour " + player.actionRound;
-                document.getElementById("list").appendChild(elt);
-
-                elt = document.createElement("div");
-                elt.innerHTML = "Force " + player.strength;
-                document.getElementById("list").appendChild(elt);
-                
-                elt = document.createElement("div");
-                elt.innerHTML = "Dextérité " + player.dexterity;
-                document.getElementById("list").appendChild(elt);
-
-                elt = document.createElement("div");
-                elt.innerHTML = "Constitution " + player.constitution;
-                document.getElementById("list").appendChild(elt);
-
-                elt = document.createElement("div");
-                elt.innerHTML = "Constitution par tour" + player.constitutionRound;
-                document.getElementById("list").appendChild(elt);
-
-                elt = document.createElement("div");
-                elt.innerHTML = "Intéligence " + player.intelligence;
-                document.getElementById("list").appendChild(elt);
-
-                elt = document.createElement("div");
-                elt.innerHTML = "Détection " + player.detection;
-                document.getElementById("list").appendChild(elt);
-
-                elt = document.createElement("div");
-                elt.innerHTML = "Crochetage " + player.lockPicking;
-                document.getElementById("list").appendChild(elt);
-
-                elt = document.createElement("div");
-                elt.innerHTML = "Désamorçage " + player.defusing;
-                document.getElementById("list").appendChild(elt);
-
-                elt = document.createElement("div");
-                elt.innerHTML = "Discrétion " + player.discretion;
-                document.getElementById("list").appendChild(elt);
-
-                elt = document.createElement("div");
-                elt.innerHTML = "Acrobaties " + player.acrobatics;
-                document.getElementById("list").appendChild(elt);
-                
-                elt = document.createElement("div");
-                elt.innerHTML = "Art de la magie " + player.artOfMagic;
-                document.getElementById("list").appendChild(elt);
-
-                elt = document.createElement("div");
-                elt.innerHTML = "Ouïe " + player.hearing;
-                document.getElementById("list").appendChild(elt);
-
-                elt = document.createElement("div");
-                elt.innerHTML = "Vue " + player.view;
-                document.getElementById("list").appendChild(elt);
-
-                elt = document.createElement("div");
-                elt.innerHTML = "Archerie " + player.precision;
-                document.getElementById("list").appendChild(elt);
-
-                elt = document.createElement("div");
-                elt.innerHTML = "Lame courte " + player.knifes;
-                document.getElementById("list").appendChild(elt);
-
-                elt = document.createElement("div");
-                elt.innerHTML = "Hache " + player.axe;
-                document.getElementById("list").appendChild(elt);
-
-                elt = document.createElement("div");
-                elt.innerHTML = "Lancé " + player.send;
-                document.getElementById("list").appendChild(elt);
-
-                elt = document.createElement("div");
-                elt.innerHTML = "Arme contondante " + player.blunt;
-                document.getElementById("list").appendChild(elt);
-
-                elt = document.createElement("div");
-                elt.innerHTML = "Lame longue " + player.swords;
-                document.getElementById("list").appendChild(elt);
-
-                elt = document.createElement("div");
-                elt.innerHTML = "Arme à deux main " + player.toHandSwords;
-                document.getElementById("list").appendChild(elt);
-
-                elt = document.createElement("div");
-                elt.innerHTML = "Armure lourde " + player.heavyArmor;
-                document.getElementById("list").appendChild(elt);
-
-                elt = document.createElement("div");
-                elt.innerHTML = "Armure legère " + player.lightArmor;
-                document.getElementById("list").appendChild(elt);
-
-                elt = document.createElement("div");
-                elt.innerHTML = "Alteration " + player.alteration;
-                document.getElementById("list").appendChild(elt);
-
-                elt = document.createElement("div");
-                elt.innerHTML = "Destruction " + player.destruction;
-                document.getElementById("list").appendChild(elt);
-
-                elt = document.createElement("div");
-                elt.innerHTML = "Enchantement " + player.enchant;
-                document.getElementById("list").appendChild(elt);
-
-                elt = document.createElement("div");
-                elt.innerHTML = "Illusion " + player.illusion;
-                document.getElementById("list").appendChild(elt);
-
-            });
+    getUser().then(user => {
+        var playerName = window.location.search.substring(
+            window.location.search.lastIndexOf("=") + 1);
+        var v1 = [
+            "strength","dexterity","intelligence",
+            "artOfMagic","detection","lockPicking","defusing","discretion",
+            "hearing","view","archery","knifes","launch","lightArmor",
+            "axe","blunts","swords","heavyArmor","alteration",
+            "destruction","enchant","illusion"
+        ];
+        var v2 = ["move","moveRound","action",
+            "actionRound","constitution","constitutionRound"];
+        getCharacteristics(user.get("players").get(playerName), v1.concat(v2)).then(chars => {
+            document.getElementById("move").innerText = chars["move"];
+            document.getElementById("moveRound").innerText = chars["moveRound"];
+            document.getElementById("action").innerText = chars["action"];
+            document.getElementById("actionRound").innerText = chars["actionRound"];
+            document.getElementById("constitution").innerText = chars["constitution"];
+            document.getElementById("constitutionRound").innerText = chars["constitutionRound"];
+            for (var i = 0; i < v1.length; ++i) {
+                document.getElementById(v1[i]).innerText = chars[v1[i]];
+                document.getElementById(v1[i] + "Training").innerText = "+1 pour " + (3 * chars[v1[i]]);
+                document.getElementById(v1[i] + "Training").name = v1[i];
+                document.getElementById(v1[i] + "Training").onclick = function() {
+                    var map = [];
+                    map[this.name] = "+1";
+                    setCharacteristics(user.get("players").get(playerName), map);
+                }
+            }
         });
 
-    </script>
+        user.get("players").get(playerName).val(player => {
+            document.getElementById("name").innerText = player.name;
+            document.getElementById("gold").innerText = player.gold;
+        });
+
+        user.get("players").get(playerName).get("classe").val(classe => {
+            if (classe) {
+                document.getElementById("classeName").innerText = classe.name;
+                var img = document.getElementById("classeImage");
+                img.style.backgroundImage = "url(img/Characters/chars.png)";
+                img.style.backgroundPosition = "-" + classe.imageX + "px "
+                    + "-" + classe.imageY + "px ";
+                img.style.height = "16px";
+                img.style.width = "16px";
+                img.style.backgroundSize = "200%";
+                img.style.transform= "scale(2)";
+            }
+        });
+
+        document.getElementById("changeClasse").onclick = function() {
+            changeClasse(user.get("players").get(playerName));
+        }
+
+    });
+
+</script>
+
 </html>

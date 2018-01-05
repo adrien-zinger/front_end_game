@@ -19,7 +19,7 @@ function showPlayer(id, pos) {
         p.style.width = "16px";
         p.style.height = "16px";
         p.style.backgroundImage =
-            "url(img/Characters/chars.png";
+            "url(img/Characters/chars.png)";
         p.style.position = "absolute";
         p.style.backgroundPositionX = "0px";
         p.style.backgroundPositionY = -(16 * 2) + "px";
@@ -38,20 +38,4 @@ function reDrawPlayers() {
             showPlayer(id, {x: players[id].x, y: players[id].y});
         }
     }
-}
-
-function setCharacteristic(id, map) {
-    game.get("players").get(id).val(player => {
-        for (name in map) {
-            var act = map[name][0];
-            var num = map[name].slice(1, map[name].length);
-            if (act == "=") {
-                player[name] = num;
-            } else if (act == "+") {
-                player[name] += num;
-            } else if (act == "-") {
-                player[name] -= num;
-            }
-        }
-    });
 }
