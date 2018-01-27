@@ -1,20 +1,28 @@
 function initPlayer(playerName) {
     return new Promise(resolve => {
         user.val(userVal => {
-            user.get("players").val(playersVal => {
-                if (playersVal === undefined || playersVal == null) {
-                    playersVal = {};
-                }
-                if (playersVal[playerName]) {
-                    return resolve(playersVal[playerName]);
-                }
+            console.log('enter into user to create player');
+            if (userVal.players === undefined) {
+                console.log('players === undefined');
+                var playersVal = {};
+                console.log('create new player');
                 playersVal[playerName] = getNewPlayer(playerName);
                 user.get("players").put(playersVal);
                 resolve(playersVal[playerName]);
-            });
-            if (!userVal.players) {
-                user.put(userVal);
+            } else {
+                console.log('players !== undefined');
+                user.get("players").val(playersVal => {
+                    if (playersVal[playerName]) {
+                        console.log('player already exist');
+                        return resolve(playersVal[playerName]);
+                    }
+                    console.log('create new player');
+                    playersVal[playerName] = getNewPlayer(playerName);
+                    user.get("players").put(playersVal);
+                    resolve(playersVal[playerName]);
+                });
             }
+            user.put(userVal);
         });
     });
 }
@@ -69,7 +77,7 @@ function getNewPlayer(playerName) {
         toY: 0,
         imageX: 0,
         imageY: 0,
-        visibility,
+        visibility: 1,
         gold: 0
     }
 }

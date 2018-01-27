@@ -172,9 +172,11 @@
 <script>
     initGun();
 
-    getUser().then(user => {
-        var playerName = window.location.search.substring(
+    var playerName = window.location.search.substring(
             window.location.search.lastIndexOf("=") + 1);
+    var _user;
+    getUser().then(user => {
+        _user = user;
         var v1 = [
             "strength","dexterity","intelligence",
             "artOfMagic","detection","lockPicking","defusing","discretion",

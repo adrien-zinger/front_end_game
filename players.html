@@ -31,6 +31,7 @@
         getUser().then(userN => {
             user = userN;
             user.get("players").map().on((player, name) => {
+                console.log('add in list');
                 var list = document.getElementById("list");
                 if (!player || flags[name]) return;
                 flags[name] = true;
@@ -44,9 +45,11 @@
         });
 
         document.querySelector("#new").addEventListener("submit", function(e){
+            console.log('submit');
             e.preventDefault();
             var name = document.getElementById("name").value;
             if (name && !flags[name]) {
+                console.log('init');
                 initPlayer(name);
             }
         });

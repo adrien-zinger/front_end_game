@@ -2,6 +2,11 @@
 
 Genre de rogue like tour par tour.
 
+Lancer le serveur gundb :
+```
+npm install //(require gun and express)
+node ./gun.js
+```
 ## ROADMAP
 
 - [] dessiner la carte avec les tiles dans ./img/objects/

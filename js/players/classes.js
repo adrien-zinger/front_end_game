@@ -17,6 +17,7 @@ function changeClasse(player) {
                 player.get("classe").put(allClasses[0]);
             }
         });
+        player.put(playerVal); // avoid override ...
     });
 }
 
